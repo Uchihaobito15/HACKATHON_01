@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Lost Treasure of Anup</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #1c1308 0%, #0a0502 100%);
+      overflow-x: hidden;
+      color: #3b2a1c;
+      font-family: 'Pirata One', cursive;
+    }
+
+    /* --- Parchment scroll container --- */
+    .scroll-container {
+      width: 85%;
+      max-width: 900px;
+      margin: 5vh auto;
+      position: relative;
+      background: url('https://i.imgur.com/ApHZ2Ax.jpg') no-repeat center/cover;
+      border: 12px solid rgba(68, 44, 20, 0.9);
+      border-radius: 10px;
+      padding: 60px;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      animation: fadeIn 2s ease-out forwards;
+    }
+
+    /* --- Burnt torn edge effect --- */
+    .scroll-container::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('https://i.imgur.com/5Ilf07t.png') no-repeat center/cover;
+      mix-blend-mode: multiply;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    /* --- Title --- */
+    h1 {
+      text-align: center;
+      font-size: 3em;
+      color: #2a1709;
+      text-shadow: 0 0 10px #d4b87a;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- Paragraph styling --- */
+    p {
+      font-size: 1.4em;
+      line-height: 1.8;
+      color: #2d180a;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1.2s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    p.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .initial-letter {
+      font-size: 2.5em;
+      color: #42210b;
+      float: left;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    /* --- Footer text --- */
+    .footer {
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 40px;
+      color: #3b2414;
+      opacity: 0.8;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- Fade in scroll container --- */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* --- Floating dust/particle effect --- */
+    .dust {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .dust span {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255, 248, 220, 0.3);
+      border-radius: 50%;
+      animation: floatDust linear infinite;
+    }
+
+    @keyframes floatDust {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-800px) translateX(200px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="scroll-container">
+    <div class="dust" id="dust"></div>
+
+    <h1>The Lost Treasure of Anup</h1>
+
+    <p><span class="initial-letter">I</span>n the forgotten age of crimson tides, there sailed a wanderer known only as Anup the Seeker. His compass pointed not north, but to the heart’s desire. Legends say he found a map carved on the bones of the sea — a map that led to the treasure of the sunken gods.</p>
+
+    <p>Each wave whispered riddles, each storm guarded secrets. The stars themselves bent their light to guide him through the veiled horizon, where no man’s soul dared drift. And there, beyond the roaring abyss, the scroll of eternity awaited — shimmering with gold and curse alike.</p>
+
+    <p>But the treasure, they say, was not gold. It was wisdom — ancient and cruel — that burned brighter than any gem. Those who sought it lost their way; those who found it lost their minds.</p>
+
+    <p>Now, traveler, the map finds you. The ink awakens under your gaze. Follow if you dare… but remember, once the scroll knows your name, the sea will never forget it.</p>
+
+    <div class="footer">— The Scroll of Anup, sealed by the tide of ages —</div>
+  </div>
+
+  <script>
+    // Scroll reveal animation
+    const paragraphs = document.querySelectorAll("p");
+    function revealOnScroll() {
+      const triggerBottom = window.innerHeight * 0.85;
+      paragraphs.forEach(p => {
+        const rect = p.getBoundingClientRect();
+        if (rect.top < triggerBottom) p.classList.add("show");
+      });
+    }
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    // Create dust particles
+    const dustContainer = document.getElementById('dust');
+    for (let i = 0; i < 30; i++) {
+      const span = document.createElement('span');
+      span.style.left = Math.random() * 100 + '%';
+      span.style.top = Math.random() * 100 + '%';
+      span.style.animationDuration = 5 + Math.random() * 10 + 's';
+      span.style.animationDelay = Math.random() * 5 + 's';
+      dustContainer.appendChild(span);
+    }
+  </script>
+</body>
+</html>
